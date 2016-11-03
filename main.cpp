@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <ctime>
 
 #include "SVD.h"
 #include "CudaSVD.h"
@@ -27,7 +28,6 @@ gsl_matrix* readMatrix(const string& fname){
 	ifstream infile(fname.c_str());
 	string line;
 	while(getline(infile, line)){
-		cout<<"Reading line: "<<line<<endl;
 		if(cols<0) {
 			cols = count(line.begin(), line.end(), ' ')+1;
 			ret = gsl_matrix_alloc(rows,cols);
@@ -41,7 +41,7 @@ gsl_matrix* readMatrix(const string& fname){
 
 		r++;
 	}
-	cout<<"Done reading"<<endl;
+	cout<<".. done reading"<<endl;
 	infile.close();
 
 	return ret;
@@ -77,15 +77,17 @@ int main(int argc, char* argv[]){
 
   gsl_matrix* m = readMatrix(string(argv[2]));
 
+  clock_t start = clock();
+
   SVD* svd = NULL;
   if(string(argv[1])=="MKL"){
-    cout<<"Using MKL SVD"<<endl;
+    cout<<"Computing SVD with MKL"<<endl;
     svd = new SVDMKL(m);
   }else if(string(argv[1])=="GSL"){
-    cout<<"Using GSL SVD"<<endl;
+    cout<<"Computing SVD with GSL"<<endl;
     svd = new SVDGSL(m);
   }else if(string(argv[1])=="CUDA"){
-    cout<<"Using CUDA SVD"<<endl;
+    cout<<"Computing SVD with CUDA"<<endl;
     svd = new CudaSVD(m);
   }else{
     cerr<<"Unrecognized SVD method: "<<argv[1]<<endl;
@@ -94,12 +96,16 @@ int main(int argc, char* argv[]){
 
   svd->UpdateFromMatrix();
 
-  cout<<"Input:"<<endl;
-  gsl_matrix_cout(m);
-  cout<<"S:"<<endl;
-  gsl_vector_cout(svd->S);
-  cout<<"V:"<<endl;
-  gsl_matrix_cout(svd->V);
+  clock_t end = clock();
+
+  //cout<<"Input:"<<endl;
+  //gsl_matrix_cout(m);
+  //cout<<"S:"<<endl;
+  //gsl_vector_cout(svd->S);
+  //cout<<"V:"<<endl;
+  //gsl_matrix_cout(svd->V);
+
+  cout<<".. done. Took: "<<((end-start)*1000.0)/CLOCKS_PER_SEC<<" ms"<<endl;
 
   return 1;
 }

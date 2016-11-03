@@ -14,8 +14,10 @@ include_directories(${MKL_INCLUDE_DIR})
 link_libraries( mkl_intel_lp64 mkl_intel_thread mkl_core iomp5 pthread )
 
 find_package(CUDA REQUIRED)
-link_libraries(${CUDA_LIBRARIES} ${CUDA_cusolver_LIBRARY} ${CUDA_CUBLAS_LIBRARIES})
+link_libraries(${CUDA_LIBRARIES} ${CUDA_TOOLKIT_ROOT_DIR}/lib64/libcusolver.so ${CUDA_cusolver_LIBRARY} ${CUDA_CUBLAS_LIBRARIES})
 include_directories(${CUDA_INCLUDE_DIRS})
+message("CUDA_TOOLKIT_ROOT_DIR ${CUDA_TOOLKIT_ROOT_DIR}")
+message("CUDA_CUBLAS_LIBRARIES ${CUDA_CUBLAS_LIBRARIES}")
 
 add_executable( SVDcompare main.cpp SVD.cpp SVDGSL.cpp SVDMKL.cpp CudaSVD.cpp)
 
