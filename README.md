@@ -20,6 +20,7 @@ $ ./SVDcompare CUDA ../matrices/tiny.txt
 
 # Results
 Details of how each method was run are outlined in the sections below. The following table summarizes runtimes in milliseconds for each method on each matrix:
+
 | Matrix | Method | Time (ms) |
 |--------|--------|-----------|
 | 3LMK   | GSL    | 470090    |
