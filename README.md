@@ -4,7 +4,7 @@ This repo outlines a quick-and-dirty running time comparison between singular va
 
 # Running code
 
-The library depends on CMake, Gnu Scientific Library (GSL), Intels Math Kernel Libraries (MKL) and Nvidias CUDA libraries. Ideally, CMake will find and configure everything but you might need to play around with the CMakeLists.txt to get it working. After installing dependencies type
+The code depends on CMake, Gnu Scientific Library (GSL), Intels Math Kernel Libraries (MKL) and Nvidias CUDA libraries. Ideally, CMake will find and configure everything but you might need to play around with the CMakeLists.txt to get it working. After installing dependencies type
 ```bash
 $ mkdir build
 $ cd build
