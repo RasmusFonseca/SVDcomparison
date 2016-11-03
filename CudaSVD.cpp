@@ -3,12 +3,10 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace std;
-
-#ifdef __CUDA_SVD
-
 #include <cuda_runtime.h>
 #include <cusolverDn.h>
+
+using namespace std;
 
 
 void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true);
@@ -118,14 +116,4 @@ void gpuErrchk(cudaError_t ans) {
 }
 
 
-#else
-
-
-void CudaSVD::UpdateFromMatrix()
-{
-  cerr<< "CudaSVD::updateFromMatrix error! CUDA not supported. Install CUDA and compile with -D__CUDA_SVD"<<endl;
-  throw "CudaSVD::updateFromMatrix error! CUDA not supported. Install CUDA and compile with -D__CUDA_SVD";
-}
-
-#endif
 

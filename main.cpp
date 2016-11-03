@@ -1,6 +1,9 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
 
 #include "SVD.h"
 #include "CudaSVD.h"
@@ -9,10 +12,61 @@
 
 using namespace std;
 
+/** Read gsl_matrix from text-file */
 gsl_matrix* readMatrix(const string& fname){
+	cout<<"readMatrix("<<fname<<")"<<endl;
+	int rows =  0, r=0;
+	int cols = -1, c=0;
+	gsl_matrix* ret = NULL;
 
+	//Count lines
+	ifstream tmp(fname.c_str());
+	rows = count(istreambuf_iterator<char>(tmp), istreambuf_iterator<char>(), '\n');
+	tmp.close();
 
+	ifstream infile(fname.c_str());
+	string line;
+	while(getline(infile, line)){
+		cout<<"Reading line: "<<line<<endl;
+		if(cols<0) {
+			cols = count(line.begin(), line.end(), ' ')+1;
+			ret = gsl_matrix_alloc(rows,cols);
+		}
+		istringstream iss(line);
+		for(c=0;c<cols;c++){
+			float val;
+			iss>>val;
+			gsl_matrix_set(ret, r,c, val);
+		}
+
+		r++;
+	}
+	cout<<"Done reading"<<endl;
+	infile.close();
+
+	return ret;
 }
+
+/** Print matrix to cout */
+void gsl_matrix_cout (const gsl_matrix *m) {
+  for (int i=0; i<m->size1; ++i) {
+    for (int j=0; j<m->size2; ++j){
+      cout << gsl_matrix_get(m,i,j);
+      if(j == (m->size2-1))
+        cout << endl;
+      else
+        cout << " ";
+    }
+  }
+}
+
+/** Print vector to cout */
+void gsl_vector_cout (const gsl_vector *v) {
+  for (int i=0; i<v->size; ++i)
+    cout << gsl_vector_get(v,i) << "\t";
+  cout << endl;
+}
+
 
 
 int main(int argc, char* argv[]){
@@ -39,6 +93,13 @@ int main(int argc, char* argv[]){
   }
 
   svd->UpdateFromMatrix();
+
+  cout<<"Input:"<<endl;
+  gsl_matrix_cout(m);
+  cout<<"S:"<<endl;
+  gsl_vector_cout(svd->S);
+  cout<<"V:"<<endl;
+  gsl_matrix_cout(svd->V);
 
   return 1;
 }

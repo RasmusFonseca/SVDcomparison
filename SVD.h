@@ -33,9 +33,6 @@ class SVD{
   /** Update U, V_t and S to reflect the decomposition of matrix. */
   virtual void UpdateFromMatrix() = 0;
 
-  /** Print the SVD to standard out */
-  void print() const;
-
 };
 
 #endif
