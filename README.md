@@ -1,6 +1,6 @@
 # SVDcomparison
 
-This repo outlines a quick-and-dirty running time comparison between singular value decomposition (SVD) computations using three popular libraries -- GSL, MKL, and CUDA. 
+This repo outlines a quick-and-dirty running time comparison between singular value decomposition (SVD) computations using three popular libraries -- GSL, MKL, and CUDA. The CPU-time of the core computation was recorded with the `clock` function. The output of this corresponded reasonably well with the output out the `time` command. More specialized timing should probably be performed for the CUDA call -- feel free to add a pull-request. 
 
 # Running code
 
