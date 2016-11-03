@@ -7,9 +7,10 @@
 #include "SVDMKL.h"
 #include "SVDGSL.h"
 
-using namespace std
+using namespace std;
 
 gsl_matrix* readMatrix(const string& fname){
+
 
 }
 
@@ -22,7 +23,7 @@ int main(int argc, char* argv[]){
 
   gsl_matrix* m = readMatrix(string(argv[2]));
 
-  SVD* svd = nullptr;
+  SVD* svd = NULL;
   if(string(argv[1])=="MKL"){
     cout<<"Using MKL SVD"<<endl;
     svd = new SVDMKL(m);

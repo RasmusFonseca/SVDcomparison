@@ -11,7 +11,7 @@ class SVDGSL: public SVD {
 
  protected:
 
-  void UpdateFromMatrix() override;
+  void UpdateFromMatrix();
 };
 
 
