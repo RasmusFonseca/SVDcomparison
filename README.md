@@ -19,6 +19,13 @@ $ ./SVDcompare CUDA ../matrices/tiny.txt
 ```
 
 # Results
+Details of how each method was run are outlined in the sections below. The following table summarizes runtimes in milliseconds for each method on each matrix:
+| Matrix | Method | Time (ms) |
+|--------|--------|-----------|
+| 3LMK   | GSL    | 470090    |
+| 3LMK   | MKL    | 29590     |
+| 3LMK   | CUDA   | 78800     |
+
 
 ## GSL
 ```bash
@@ -26,6 +33,7 @@ $ ./SVDcompare GSL ../matrices/3LMK_jacobian.txt
 readMatrix(../matrices/3LMK_jacobian.txt)
 .. done reading
 Computing SVD with GSL
+.. done. Took: 470090 ms
 ```
 
 ## MKL
