@@ -19,14 +19,16 @@ $ ./SVDcompare CUDA ../matrices/tiny.txt
 ```
 
 # Results
-Details of how each method was run are outlined in the sections below. The following table summarizes runtimes in milliseconds for each method on each matrix:
+Examples on how each method was run are outlined in the sections below. The following table summarizes runtimes in milliseconds for each method on each matrix. The 'sparsity' is the number of zero-values divided by total entries in the matrix. The [3LMK](http://www.rcsb.org/pdb/explore/explore.do?structureId=3LMK) matrix is a typical (large) use-case for [KGS](https://simtk.org/projects/kgs/) molecular sampling.
 
-| Matrix | Method | Time (ms) |
-|--------|--------|-----------|
-| 3LMK   | GSL    | 470090    |
-| 3LMK   | MKL    | 29590     |
-| 3LMK   | CUDA   | 78800     |
-
+| Matrix  | Dimension | Sparsity | Method | Time (ms) |
+|---------|-----------|----------|--------|-----------|
+| 3LMK    | 3735x2969 | 0.979    | GSL    | 470090    |
+| 3LMK    | 3735x2969 | 0.979    | MKL    | 29590     |
+| 3LMK    | 3735x2969 | 0.979    | CUDA   | 78800     |
+| dense1k | 1000x1000 | 0.000    | GSL    | 9750      |
+| dense1k | 1000x1000 | 0.000    | MKL    | 1640      |
+| dense1k | 1000x1000 | 0.000    | CUDA   | 5340      |
 
 ## GSL
 ```bash
